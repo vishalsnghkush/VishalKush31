@@ -140,7 +140,7 @@ test("contact form validates, preserves failed drafts, and submits with a softer
         : { status: 422, json: { errors: [{ message: "Please verify the recipient email." }] } });
     });
     assert.equal(await page.locator("#contact-form").getAttribute("action"), "https://formspree.io/f/meaavkyo");
-    assert.match(await page.locator(".contact-form-privacy").textContent(), /Formspree/);
+    assert.equal(await page.locator(".contact-form-privacy").count(), 0);
     const button = page.getByRole("button", { name: "Send message" });
     const status = page.locator("#contact-form-status");
     assert.equal(await page.locator("#contact").evaluate(el => getComputedStyle(el).backgroundColor), colorScheme === "dark" ? "rgb(45, 36, 43)" : "rgb(240, 220, 227)");

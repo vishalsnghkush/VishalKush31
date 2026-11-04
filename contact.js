@@ -13,7 +13,7 @@ export function contactFormMarkup() {
           <div class="contact-field"><label for="contact-email">Email address</label><input id="contact-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required maxlength="254"></div>
         </div>
         <div class="contact-field"><label for="contact-message">Your message</label><textarea id="contact-message" name="message" rows="5" placeholder="Tell me a little about it…" required minlength="10" maxlength="5000"></textarea></div>
-        <p class="contact-form-privacy">Your name, email, and message are sent via <a href="https://formspree.io/legal/privacy-policy/" target="_blank" rel="noopener noreferrer">Formspree</a> to my inbox. Please don't include sensitive information.</p>
+
         <button class="button button-dark contact-submit" type="submit">Send message <span aria-hidden="true">↗</span></button>
         <p id="contact-form-status" role="status" aria-live="polite" aria-atomic="true"></p>
       </form>

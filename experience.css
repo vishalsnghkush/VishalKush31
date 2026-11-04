@@ -1,0 +1,271 @@
+.experience {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans, sans-serif);
+  font-size: 17.1px;
+  line-height: 1.7;
+}
+
+.experience .experience-inner {
+  max-width: 1200px;
+  margin-inline: auto;
+  min-width: 0;
+}
+
+.experience .experience-label,
+.experience .experience-pending-label,
+.experience .role-status,
+.experience .role-skill,
+.experience .role-certificate {
+  font-family: var(--mono, monospace);
+  font-size: 11.4px;
+  line-height: 1.6;
+}
+
+.experience .experience-label {
+  margin: 0 0 32px;
+  letter-spacing: 0.1em;
+}
+
+.experience .experience-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  align-items: end;
+  gap: 32px;
+  margin-bottom: 48px;
+}
+
+.experience .experience-title {
+  margin: 0;
+  font-size: clamp(38px, 4.75vw, 68.4px);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+}
+
+.experience .experience-title em {
+  font-family: var(--serif, Georgia, serif);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+}
+
+.experience .experience-intro {
+  margin: 0;
+  color: var(--muted);
+  font-size: 17.1px;
+  line-height: 1.7;
+}
+
+.experience .experience-roles {
+  border-top: 1px solid var(--line);
+}
+
+.experience .role-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2.3fr);
+  gap: 40px;
+  padding-block: 40px;
+  border-bottom: 1px solid var(--line);
+}
+
+.experience .role-meta,
+.experience .role-content {
+  min-width: 0;
+}
+
+.experience .role-period {
+  margin: 0 0 14px;
+  font-size: 17.1px;
+  font-variant-numeric: tabular-nums;
+}
+
+.experience .role-status {
+  display: inline-block;
+  max-width: 100%;
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  color: var(--muted);
+  background: var(--surface, var(--paper));
+}
+
+.experience .role-status-current {
+  border-color: var(--pink);
+  color: var(--ink);
+  background: color-mix(in srgb, var(--pink) 28%, var(--paper));
+}
+
+.experience .role-organization {
+  margin: 0 0 6px;
+  font-size: 17.1px;
+  font-weight: 500;
+}
+
+.experience .role-title {
+  margin: 0;
+  font-family: var(--serif, Georgia, serif);
+  font-size: clamp(26.6px, 2.85vw, 36.1px);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.experience .role-highlights {
+  margin: 22px 0;
+  padding-inline-start: 22px;
+  font-size: 17.1px;
+  line-height: 1.7;
+}
+
+.experience .role-highlights li + li {
+  margin-top: 8px;
+}
+
+.experience .role-highlights li::marker {
+  color: var(--muted);
+}
+
+.experience .role-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.experience .role-skill {
+  padding: 5px 11px;
+  border: 1px solid var(--line);
+  border-radius: 100px;
+}
+
+.experience .role-certificate {
+  margin: 22px 0 0;
+  color: var(--muted);
+}
+
+.experience .experience-pending {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2.3fr);
+  gap: 40px;
+  margin-top: 28px;
+  padding: 24px;
+  border-inline-start: 3px solid var(--pink);
+  background: var(--surface, var(--paper));
+}
+
+.experience .experience-pending-label {
+  margin: 4px 0 0;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.experience .experience-pending-copy {
+  margin: 0;
+  color: var(--muted);
+  font-size: 17.1px;
+  line-height: 1.7;
+}
+
+.experience .experience-playground {
+  align-items: center;
+  border: 1px dashed var(--frame-line, var(--line));
+  border-radius: 16px;
+  padding: 30px;
+  gap: 30px;
+  background: linear-gradient(135deg, var(--pink-light), var(--surface));
+}
+
+.experience .playground-console {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--paper);
+  font: 11.4px/1.8 var(--mono, monospace);
+  overflow-wrap: anywhere;
+}
+
+.experience .playground-console > span:first-child {
+  color: var(--muted);
+}
+
+.experience .playground-console code {
+  font: inherit;
+}
+
+.experience .playground-output {
+  color: var(--accent);
+}
+
+.experience .experience-playground h3 {
+  margin: 10px 0 14px;
+  font-size: clamp(26.6px, 2.85vw, 36.1px);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -.03em;
+}
+
+.experience .experience-playground h3 em {
+  font-family: var(--serif);
+  color: var(--accent);
+  font-weight: 400;
+}
+
+.experience .experience-playground .text-link {
+  margin-top: 20px;
+}
+
+.experience .experience-title,
+.experience .role-title,
+.experience .role-organization,
+.experience .role-status,
+.experience .experience-pending-copy {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 700px) {
+  .experience {
+    font-size: 15.2px;
+  }
+
+  .experience .experience-heading,
+  .experience .role-card,
+  .experience .experience-pending {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+
+  .experience .experience-heading {
+    margin-bottom: 32px;
+  }
+
+  .experience .experience-label {
+    margin-bottom: 24px;
+  }
+
+  .experience .role-card {
+    padding-block: 28px;
+  }
+
+  .experience .role-period {
+    margin-bottom: 10px;
+  }
+
+  .experience .experience-intro,
+  .experience .role-period,
+  .experience .role-organization,
+  .experience .role-highlights,
+  .experience .experience-pending-copy {
+    font-size: 15.2px;
+  }
+
+  .experience .experience-pending {
+    gap: 10px;
+    padding: 18px;
+  }
+}

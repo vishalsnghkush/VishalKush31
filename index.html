@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f3b9c8" />
+    <script>
+      // Apply the saved preference before first paint, even on a deep link.
+      (() => {
+        let saved;
+        try { saved = localStorage.getItem('portfolio-theme'); } catch {}
+        const dark = saved === 'dark' || (saved !== 'light' && matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+        document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+      })();
+    </script>
+    <meta
+      name="description"
+      content="Vishal Kushwaha — CSE (AI & ML) student at the University of Delhi. Explore mobile applications, full-stack platforms, and applied AI projects."
+    />
+    <meta
+      property="og:title"
+      content="Vishal Kushwaha — Developer & Curious Builder"
+    />
+    <meta
+      property="og:description"
+      content="A little curiosity. A lot of code. Explore Vishal's work across web, mobile, and AI."
+    />
+    <meta property="og:type" content="website" />
+    <title>Vishal Kushwaha — Developer & Curious Builder</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=DM+Sans:wght@400;450;500;550;600;650;700&family=Instrument+Serif:ital@0;1&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div id="app"></div>
+    <noscript
+      >This portfolio needs JavaScript for its interactive project gallery.
+      Contact Vishal at
+      <a href="mailto:vishalsnghkush31@gmail.com">vishalsnghkush31@gmail.com</a>
+      or visit <a href="https://github.com/vishalsnghkush">GitHub</a>.</noscript
+    >
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>

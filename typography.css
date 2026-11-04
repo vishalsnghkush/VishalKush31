@@ -1,0 +1,149 @@
+/* Reading text is enlarged independently from the miniature decorative UI studies. */
+:root { --reading-size: clamp(17.1px, 1.5675vw, 22.8px); --detail-size: 12.35px; }
+body { font-size: 17.1px; }
+.site-header { gap: 15px; padding-inline: 2.5vw; }
+.site-header nav { gap: clamp(12px, 1.25vw, 22px); }
+.site-header nav a { font-size: 14.25px; }
+.header-contact { font-size: 13.3px; white-space: nowrap; }
+.wordmark { width: 42px; flex-shrink: 0; }
+.section-label { font-size: 12.35px; line-height: 1.7; letter-spacing: 1px; }
+.hello { font-size: 17.8695px; }
+.hero-intro p { font-size: calc(var(--reading-size) * .855); line-height: 1.6; }
+.hero-intro em { font-size: 1.2em; }
+.hero-meta, .hero-meta .availability { font-size: 10.45px; line-height: 1.8; }
+.button, .hero-actions .button, .github-section .button { font-size: 15.2px; padding: 17px 22px; min-height: 52px; }
+.text-link, .about-copy .text-link, .dsa-grid .text-link { font-size: 15.2px; }
+.section-heading > p, .about-copy > p:not(.large-copy), .dsa-grid > div > p, .project-description, .static-projects .project-description, .internship-certificates p { font-size: var(--reading-size); line-height: 1.75; }
+.about-copy > p:not(.large-copy) { font-size: calc(var(--reading-size) * .9); }
+.about-copy .large-copy { font-size: clamp(23.75px, 2.375vw, 32.3px); }
+.about-stats p { font-size: 11.4px; line-height: 1.6; }
+.about-stats .stat-note { font-size: 23.75px; }
+.education-main h3 { font-size: 24.7px; line-height: 1.35; }
+.education-main p { font-size: 19px; }
+.education-main > span:last-child { font-size: 16.15px; }
+.education-main .mini-pill, .education-score p { font-size: 10.45px; line-height: 1.6; }
+.education-main .mini-pill { margin-bottom: 16px; }
+.experience-line { align-items: center; flex-wrap: wrap; }
+.experience-line p { font-size: 15.2px; flex: 1; min-width: 200px; }
+.experience-line > a { font-size: 13.3px; }
+.skill-card h3 { font-size: 23.75px; }
+.skill-card > p { font-size: 15.2px; }
+.skill-number { font-size: 11.4px; }
+.skill-tags > span { font-size: 13.3px; }
+.skills-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.skill-card { padding: 30px; }
+.project-filters button { font-size: 13.3px; padding: 11px 18px; }
+.project-filters button > span { font-size: 11.4px; }
+.scroll-hint { font-size: 10.45px; }
+.project-position { font-size: 19px; margin-bottom: 24px; }
+.project-position > span { font-size: 13.3px; }
+.project-eyebrow, .static-projects .project-eyebrow { font-size: 11.4px; line-height: 1.7; }
+.project-tech > span, .static-projects .project-tech > span { font-size: 11.4px; }
+.project-description { max-width: none; font-size: 17.1px; }
+.project-links .button, .static-projects .project-links .button { font-size: 13.3px; min-height: 46px; padding: 13px 16px; }
+.project-source, .static-projects .project-source { font-size: 13.3px; }
+.projects-end > span { font-size: 10.45px; line-height: 1.7; }
+.projects-end > a { font-size: 15.2px; }
+.project-sticky { gap: 5%; grid-template-columns: 1fr 1.25fr; }
+.project-info h3 { font-size: clamp(30.4px, 3.42vw, 49.4px); }
+.project-progress { margin-top: 25px; }
+.static-projects .mobile-project-details h3 { font-size: 32.3px; }
+.board-top { font-size: 11.4px; line-height: 1.7; }
+.dsa-board > p { font-size: 17.1px; }
+.board-tags > span { font-size: 12.35px; }
+.board-achievement p { font-size: 14.25px; }
+.board-achievement strong { font-size: 19px; }
+.github-identity > span { font-size: 17.1px; }
+.github-identity > .github-sync { font-size: 10.45px; }
+.github-metric > span { font-size: 11.4px; }
+.github-metric > p { font-size: 16.15px; }
+.repo-list > a { font-size: 16.15px; }
+.repo-list small { font-size: 11.4px; }
+.github-foot { font-size: 10.45px; line-height: 1.8; }
+.certificate h3 { font-size: 26.6px; }
+.certificate small { font-size: 16.15px; }
+.certificate > span:first-child, .cert-category { font-size: 11.4px; }
+.source-note { font-size: 12.35px; }
+.contact .availability { font-size: 10.45px; }
+.contact-email > p { font-size: 16.15px; }
+.contact-links > a { font-size: 15.2px; }
+.contact-email > #copy-status { font-size: 12.35px; }
+footer > p, footer > span { font-size: 9.5px; line-height: 1.8; }
+@media (max-width: 1100px) {
+  .section-heading { align-items: flex-start; flex-direction: column; }
+  .section-heading > p { margin-top: 0; }
+  .about-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .about-stats .stat-note { display: none; }
+  .education-card { flex-wrap: wrap; }
+  .education-main { flex: 1; min-width: 220px; }
+  .education-score { margin-left: 0; }
+  .contact-bottom { grid-template-columns: 1fr; gap: 28px; }
+}
+@media (max-width: 900px) {
+  .about-grid, .dsa-grid { grid-template-columns: 1fr; gap: 35px; }
+  .about-note { margin-top: 25px; }
+  .hero-layout { grid-template-columns: 1.15fr 1fr; }
+  .hero-intro { align-items: flex-start; }
+  .hero-intro p { font-size: 14.6205px; }
+  .hero-intro p br { display: none; }
+  .hero-meta, .hero-meta .availability { font-size: 8.55px; }
+  .github-body { gap: 35px; }
+  .github-foot { flex-direction: column; gap: 10px; }
+  .github-identity { flex-wrap: wrap; }
+  .github-identity > .github-sync { font-size: 9.5px; }
+  .cert-category { display: none; }
+}
+@media (max-width: 650px) {
+  .site-header nav a { font-size: 14.25px; }
+  .section-label { font-size: 10.45px; letter-spacing: .6px; }
+  .section-heading > p { margin-top: 20px; }
+  .hello { font-size: 16.245px; }
+  .view-frame .hero-meta { flex-wrap: wrap; gap: 12px; }
+  .view-frame .hero-meta > span:first-child { max-width: none; font-size: 8.55px; }
+  .view-frame .hero-meta .availability { font-size: 7.6px; gap: 7px; }
+  .hero-actions .button { font-size: 15.2px; }
+  .about-stats { grid-template-columns: 1fr; gap: 22px; }
+  .about-stats > div { border: 0; padding: 0; }
+  .about-stats p { font-size: 11.4px; margin-top: 8px; }
+  .about-stats strong { font-size: 45.6px; }
+  .education-mark { display: none; }
+  .view-frame .education-main { min-width: 0; flex-basis: 100%; }
+  .education-main h3 { font-size: 21.85px; }
+  .education-main p { font-size: 17.1px; }
+  .education-main > span:last-child { font-size: 15.2px; }
+  .education-score { width: 100%; margin-left: 0; }
+  .education-score p { font-size: 10.45px; max-width: none; }
+  .experience-line > a { margin-left: 0; }
+  .skills-grid { grid-template-columns: 1fr; gap: 16px; }
+  .skill-card { padding: 25px; }
+  .skill-card h3 { font-size: 23.75px; }
+  .skill-tags > span { font-size: 13.3px; }
+  .project-filters button { font-size: 12.35px; padding: 10px 13px; }
+  .project-filters button > span { font-size: 10.45px; }
+  .project-toolbar { display: block; }
+  .static-projects .mobile-project-details h3 { font-size: 28.5px; }
+  .static-projects .project-tech > span { font-size: 10.45px; }
+  .static-projects .project-links { gap: 14px; }
+  .static-projects .project-links .button, .static-projects .project-source { font-size: 12.35px; }
+  .dsa-board { padding: 22px; }
+  .board-top { font-size: 10.45px; }
+  .board-achievement p { font-size: 13.3px; }
+  .board-achievement strong { font-size: 17.1px; }
+  .github-body { grid-template-columns: 1fr; padding: 22px 18px; }
+  .github-identity > span { font-size: 15.2px; }
+  .github-identity > .github-sync { margin-left: 0; width: 100%; font-size: 9.5px; }
+  .repo-list > a { font-size: 14.25px; }
+  .github-foot { font-size: 10.45px; }
+  .certificate { gap: 12px; }
+  .certificate h3 { font-size: 21.85px; }
+  .certificate small { font-size: 15.2px; }
+  .certificate > span:first-child { font-size: 10.45px; width: 20px; flex-shrink: 0; }
+  .cert-symbol { margin-left: auto; font-size: 23.75px; }
+  .source-note { font-size: 11.4px; }
+  .contact .availability { font-size: 9.5px; line-height: 1.8; }
+  .contact-links { grid-template-columns: 1fr; gap: 18px; }
+  .contact-links > a { font-size: 15.2px; }
+  .contact-email > p { font-size: 15.2px; }
+  footer { gap: 15px; }
+  footer > p, footer > span { font-size: 8.55px; }
+}

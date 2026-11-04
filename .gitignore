@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.playwright/
+test-results/
+*.local
+.env
+.env.*
+
+# Downloaded design references are not part of the portfolio.
+reference.html
+dev-reference.html
+nav-reference.html

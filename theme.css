@@ -47,10 +47,56 @@
 .internship-certificates { margin-top: 36px; padding: 28px; border: 1px dashed var(--frame-line); background: var(--surface); border-radius: 12px; }
 .internship-certificates h3 { font-size: 23.75px; font-weight: 500; letter-spacing: -.5px; }
 .internship-certificates p { margin: 12px 0; color: var(--muted); }
+.github-activity { padding: clamp(15px, 3vw, 30px); border-top: 1px solid var(--line); min-width: 0; }
+.github-activity-heading { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; margin-bottom: 20px; }
+.github-activity-heading h3 { font-size: 23.75px; font-weight: 500; letter-spacing: -.5px; }
+.github-activity-heading p, .github-activity-note, #github-activity-status { color: var(--muted); font-size: 14px; line-height: 1.6; }
+.github-activity-heading p { margin-top: 8px; }
+.github-activity-heading .text-link { flex-shrink: 0; }
+.github-activity-scroll { max-width: 100%; overflow-x: auto; padding: 16px; border: 1px solid var(--line); border-radius: 8px; background: #fffefd; }
+.github-activity-scroll:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+#github-activity-chart { display: block; width: 100%; min-width: 722px; height: auto; }
+#github-activity-chart[hidden] { display: none; }
+.github-activity-note, #github-activity-status { margin-top: 12px; }
 .project-card { color: #242323; }
 footer { background: #242323; color: #fffefd; }
 /* Keep pink contact panels and pastel interface studies legible in both themes. */
-.contact { --ink: #242323; --paper: #fffefd; --muted: #684551; }
+.contact { --ink: #30282d; --paper: #fffefd; --muted: #684551; --line: #b8909f; color: var(--ink); background: #f0dce3; }
+.contact h2 { font-size: clamp(48px, 6.5vw, 100px); line-height: 1.05; }
+.contact h2 > em { letter-spacing: -2px; }
+.contact-compose { display: grid; grid-template-columns: minmax(0, .7fr) minmax(0, 1.3fr); gap: clamp(24px, 4vw, 56px); padding-top: 40px; margin-top: 40px; border-top: 1px solid var(--line); }
+.contact-eyebrow { color: var(--muted); font: 11px var(--mono); letter-spacing: 1px; }
+.contact-form-intro h3 { font-size: clamp(26px, 3vw, 36px); line-height: 1.2; font-weight: 500; margin: 16px 0; }
+.contact-form-intro p { color: var(--muted); font-size: 16px; line-height: 1.8; max-width: 32ch; }
+#contact-form { min-width: 0; }
+.contact-form-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.contact-field { display: flex; flex-direction: column; gap: 9px; margin-bottom: 20px; min-width: 0; }
+.contact-field label { font-size: 14px; font-weight: 500; }
+.contact-field input, .contact-field textarea { width: 100%; min-width: 0; border: 1px solid var(--line); border-radius: 8px; padding: 13px 14px; background: var(--paper); color: var(--ink); font: inherit; font-size: 16px; line-height: 1.6; }
+.contact-field textarea { resize: vertical; min-height: 150px; }
+.contact-field :is(input, textarea)::placeholder { color: var(--muted); opacity: .85; }
+.contact-field :is(input, textarea):focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.contact-form-privacy { font-size: 12px; line-height: 1.7; color: var(--muted); margin-bottom: 20px; }
+.contact-form-privacy a { text-decoration: underline; text-underline-offset: 3px; }
+.contact-submit { gap: 24px; }
+.contact-submit:disabled { opacity: .65; cursor: wait; }
+#contact-form-status { font-size: 14px; line-height: 1.7; margin-top: 14px; color: var(--ink); }
+#contact-form-status[data-state="error"] { border-left: 3px solid var(--accent); padding-left: 12px; }
+.contact-honeypot { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.contact :is(.contact-bottom, .contact-links > a, .contact-email > a, .contact-arrow) { border-color: var(--line); }
+.contact :is(.contact-email > p, .contact-email > #copy-status) { color: var(--muted); }
+[data-theme="dark"] .contact { --ink: #f0e6eb; --paper: #211d22; --muted: #c2afb9; --line: #594550; background: #2d242b; }
+[data-theme="dark"] .contact :is(.section-label > span, .availability) { color: var(--muted); }
+[data-theme="dark"] .contact h2 > em { color: var(--accent); }
+.contact .contact-arrow:hover { background: var(--ink); color: var(--paper); }
+@media (max-width: 900px) {
+  .contact-compose { grid-template-columns: 1fr; }
+  .contact-form-intro p { max-width: none; }
+}
+@media (max-width: 650px) {
+  .contact-form-row { grid-template-columns: 1fr; gap: 0; }
+  .contact-submit { width: 100%; justify-content: center; }
+}
 [data-theme="dark"] .site-header nav a { color: var(--muted); }
 [data-theme="dark"] .site-header nav a.active,
 [data-theme="dark"] .site-header nav a:hover { color: var(--ink); }

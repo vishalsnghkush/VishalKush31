@@ -51,9 +51,11 @@ On desktop, scrolling advances a sticky, layered project-card deck. On narrow sc
 
 ### Contact & data
 
-Email and phone links open the visitor's own mail/calling applications. The copy-email button uses the Clipboard API, with a clear message if it is unavailable. There is no contact-form backend and no claim that a message was sent.
+The contact form sends name, email, and message to `https://formsubmit.co/ajax/vishalsnghkush31@gmail.com` through FormSubmit, without API keys or a custom backend. **One-time setup:** submit a test message from the deployed site, then open the activation email from FormSubmit in `vishalsnghkush31@gmail.com` (check Spam) and confirm the form. Submit another test afterward and verify it reaches your inbox. Until activation, delivery is not ready; an accepted API response alone does not prove email delivery. Automated tests mock the service and never send real messages.
 
-GitHub public profile/repository data loads directly from `api.github.com` without a token, with a seven-second timeout and a linked November 2026 snapshot on failure or rate limits. Requests expose the visitor's IP to GitHub; font loading similarly contacts Google Fonts. There is no analytics, tracking, database, or secret storage. External project hosting may sleep or be unavailable independently of the portfolio.
+The form has browser validation, a honeypot field, duplicate-submit protection, a 15-second timeout, an accessible status message, and retry-safe failure handling that preserves the draft. Visitor details pass through FormSubmit; the form includes a privacy notice. FormSubmit availability, spam filtering, and service policies apply. Email and phone links remain available as alternatives, and the copy-email button handles unavailable clipboard access.
+
+GitHub public profile/repository data loads directly from `api.github.com` without a token, with a seven-second timeout and a linked November 2026 snapshot on failure or rate limits. The past-year contribution calendar is a public image from `ghchart.rshah.org` (GHChart), with a GitHub activity link if loading fails. It counts contributions, not exclusively commits. Requests expose the visitor's IP to GitHub and GHChart; font loading similarly contacts Google Fonts. There is no analytics, tracking, database, or secret storage. External project hosting may sleep or be unavailable independently of the portfolio.
 
 ## Browser tests
 

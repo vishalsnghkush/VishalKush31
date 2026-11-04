@@ -5,6 +5,7 @@ import "./experience.css";
 import "./theme.css";
 import "./typography.css";
 import { setupTheme } from "./theme.js";
+import { contactFormMarkup, setupContactForm } from "./contact.js";
 
 const github = "https://github.com/vishalsnghkush";
 const linkedin = "https://www.linkedin.com/in/vishal-kushwaha-253891275/";
@@ -83,25 +84,25 @@ const skills = [
     "01",
     "The languages",
     "How I think in code.",
-    ["Python", "JavaScript", "TypeScript", "C++", "HTML & CSS"],
+    ["Python", "JavaScript", "TypeScript", "C", "C++", "HTML & CSS"],
   ],
   [
     "02",
     "The interfaces",
     "From browser to pocket.",
-    ["React", "Next.js", "React Native", "Capacitor", "Tailwind CSS"],
+    ["React", "Next.js", "React Native", "Expo", "Capacitor", "Tailwind CSS", "Redux Toolkit", "React Native SVG", "Chart.js", "Vite"],
   ],
   [
     "03",
     "The intelligence",
     "Making data do more.",
-    ["PyTorch", "TensorFlow", "scikit-learn", "Pandas", "Computer Vision"],
+    ["PyTorch", "TensorFlow", "scikit-learn", "Pandas", "Computer Vision", "SciPy", "scikit-image", "NetworkX", "RapidFuzz", "LightGBM", "XGBoost", "Matplotlib"],
   ],
   [
     "04",
     "The foundations",
     "Everything underneath.",
-    ["Flask", "FastAPI", "PostgreSQL", "Git & GitHub", "Docker"],
+    ["Flask", "FastAPI", "PostgreSQL", "MySQL", "Turso", "Firebase", "Drizzle ORM", "Git & GitHub", "Docker"],
   ],
 ];
 
@@ -128,11 +129,11 @@ document.querySelector("#app").innerHTML = `
       <div class="about-grid"><div><h2 id="about-title">A little logic.<br>A lot of <em>curiosity.</em></h2><div class="about-note"><span>✳</span> More than a job title.<br>Always a work in progress.</div></div><div class="about-copy"><p class="large-copy">I'm Vishal — a developer who likes connecting the dots between <span>good ideas and useful software.</span></p><p>I'm studying Computer Science & Engineering (AI & ML) at the University of Delhi, and previously built mobile experiences as a Mobile App Developer Intern at StudifySuccess.</p><p>My projects take me from crop-health tools and learning platforms to computer vision and operating-system simulators. Different problems. The same instinct: understand it, build it, make it better.</p><a class="text-link" href="${linkedin}" target="_blank" rel="noopener noreferrer">The professional side of me ${icon("arrow")}</a></div></div>
       <div class="about-stats"><div><strong>10<span>↗</span></strong><p>PROJECTS TO EXPLORE</p></div><div><strong>3<span>+</span></strong><p>WORLDS: WEB, MOBILE, AI</p></div><div><strong>260<span>+</span></strong><p>LEETCODE PROBLEMS</p></div><div class="stat-note">Not just learning<br>the tools. <em>Putting<br>them to work.</em></div></div>
     </section>
-    <section class="academics section-pad" id="academics" aria-labelledby="academic-title">${label("02", "THE FOUNDATION")}<div class="section-heading"><h2 id="academic-title">Learning with <em>intent.</em></h2><span class="handwritten">and building along the way ↘</span></div><div class="education-card"><div class="education-mark" aria-hidden="true">DU<span>EST. 1922</span></div><div class="education-main"><span class="mini-pill">2024 — 2028 · PURSUING</span><h3>B.Tech, Computer Science & Engineering</h3><p>Artificial Intelligence & Machine Learning</p><span>Faculty of Technology, University of Delhi</span></div><div class="education-score"><strong>8.6<span>/10</span></strong><p>CGPA · PROFILE-LISTED¹</p></div></div><div class="experience-line"><span class="status-dot"></span><p><strong>Learning in the real world, too.</strong> Former Mobile App Developer Intern at StudifySuccess · React Native</p>${external(linkedin, "View profile")}</div></section>
+    <section class="academics section-pad" id="academics" aria-labelledby="academic-title">${label("02", "THE FOUNDATION")}<div class="section-heading"><h2 id="academic-title">Learning with <em>intent.</em></h2><span class="handwritten">and building along the way ↘</span></div><div class="education-card"><div class="education-mark" aria-hidden="true">DU<span>EST. 1922</span></div><div class="education-main"><span class="mini-pill">2024 — 2028 · PURSUING</span><h3>B.Tech, Computer Science & Engineering</h3><p>Artificial Intelligence & Machine Learning</p><span>Faculty of Technology, University of Delhi</span></div><div class="education-score"><strong>8.45<span>/10</span></strong><p>CGPA · PROFILE-LISTED¹</p></div></div><div class="experience-line"><span class="status-dot"></span><p><strong>Learning in the real world, too.</strong> Former Mobile App Developer Intern at StudifySuccess · React Native</p>${external(linkedin, "View profile")}</div></section>
     ${experienceView}
     <section class="skills section-pad" id="skills" aria-labelledby="skills-title">${label("04", "MY EVER-EVOLVING TOOLBOX")}<div class="section-heading"><h2 id="skills-title">The right tools.<br>The <em>builder's mindset.</em></h2><p>From the first idea to the last commit.<br>Here's what I build with.</p></div><div class="skills-grid">${skills.map(([n, title, subtitle, list]) => `<article class="skill-card"><span class="skill-number">${n} /</span><h3>${title}</h3><p>${subtitle}</p><div class="skill-tags">${tags(list)}</div></article>`).join("")}</div></section>
     <section class="projects-section" id="projects" aria-labelledby="projects-title"><div class="projects-heading section-pad">${label("05", "LESS TALK. MORE THINGS BUILT.")}<div class="section-heading"><h2 id="projects-title">Selected <em>work.</em><span class="project-count">(10)</span></h2><p>A collection of experiments, collaborations,<br>and ideas that made it out of my head.</p></div><div class="project-toolbar"><div class="project-filters" role="group" aria-label="Filter projects">${["All work", "Web", "Mobile", "AI & ML", "Systems"].map((s, i) => `<button data-filter="${s}" aria-pressed="${i === 0}">${s}${i === 0 ? " <span>10</span>" : ""}</button>`).join("")}</div><span class="scroll-hint">SCROLL TO UNFOLD ${icon("down")}</span></div></div><div class="project-scroll"><div class="project-sticky"><div class="project-info" aria-live="polite"></div><div class="project-deck" aria-label="Project gallery"></div></div></div><div class="projects-end"><span>THAT'S THE COLLECTION. MORE IDEAS ARE BREWING.</span>${external(github + "?tab=repositories", "Dig into the code")}</div></section>
-    <section class="dsa section-pad" id="dsa" aria-labelledby="dsa-title">${label("06", "A LITTLE BETTER, EVERY PROBLEM")}<div class="dsa-grid"><div><h2 id="dsa-title">Behind the build,<br>there's the <em>thinking.</em></h2><p>Good software starts with good problem solving. I keep sharpening the fundamentals — one algorithm, one edge case, one better approach at a time.</p><div class="dsa-profile-links">${external(leetcode, "Visit my LeetCode", "button button-dark")}${external(github + "/dsa_", "DSA practice on GitHub", "text-link")}</div></div><div class="dsa-board"><div class="board-top"><span>THE PROBLEM-SOLVING SIDE</span>${icon("code")}</div><strong>260<span>+</span></strong><p>LeetCode problems solved</p><div class="board-tags">${tags(["Data structures", "Algorithms", "C++", "Python"])}</div><div class="board-achievement"><span>↗</span><p><strong>2nd Runner-Up</strong><br>Offline Competitive Programming Contest · DU¹</p></div></div></div></section>
+    <section class="dsa section-pad" id="dsa" aria-labelledby="dsa-title">${label("06", "A LITTLE BETTER, EVERY PROBLEM")}<div class="dsa-grid"><div><h2 id="dsa-title">Behind the build,<br>there's the <em>thinking.</em></h2><p>Good software starts with good problem solving. I keep sharpening the fundamentals — one algorithm, one edge case, one better approach at a time.</p><div class="dsa-profile-links">${external(leetcode, "Visit my LeetCode", "button button-dark")}</div></div><div class="dsa-board"><div class="board-top"><span>THE PROBLEM-SOLVING SIDE</span>${icon("code")}</div><strong>260<span>+</span></strong><p>LeetCode problems solved</p><div class="board-tags">${tags(["Data structures", "Algorithms", "C++", "Python"])}</div><div class="board-achievement"><span>↗</span><p><strong>2nd Runner-Up</strong><br>Offline Competitive Programming Contest · DU¹</p></div></div></div></section>
     <section class="github-section section-pad" id="github" aria-labelledby="github-title">${label("07", "IN THE OPEN")}<div class="section-heading"><h2 id="github-title">The work continues<br><em>on GitHub.</em></h2>${external(github, "Meet me on GitHub", "button button-dark")}</div><div class="github-panel"><div class="github-identity">${icon("github")}<span>@vishalsnghkush</span><span class="github-sync" role="status">PUBLIC PROFILE</span></div><div class="github-body"><div class="github-metric"><strong id="repo-count">23</strong><span>PUBLIC REPOSITORIES</span><p>Projects, practice, and the occasional<br>“let's see if this works.”</p></div><div class="repo-list" id="repo-list">${projects
       .filter((p) => p.repo.startsWith(github))
       .slice(0, 3)
@@ -142,7 +143,7 @@ document.querySelector("#app").innerHTML = `
       )
       .join(
         "",
-      )}</div></div><div class="github-foot"><span>✳ GSSoC '25 open-source contributor¹</span><span id="github-source">Snapshot from public GitHub profile · Nov 2026</span></div></div></section>
+      )}</div></div><div class="github-activity" aria-labelledby="github-activity-title"><div class="github-activity-heading"><div><h3 id="github-activity-title">A year of building.</h3><p>GitHub contributions over the past 12 months — commits, pull requests, and more.</p></div>${external(github + "?tab=overview", "View activity", "text-link")}</div><div class="github-activity-scroll" tabindex="0" role="region" aria-label="Past-year GitHub contribution graph; scroll horizontally on smaller screens"><img id="github-activity-chart" src="https://ghchart.rshah.org/94556d/vishalsnghkush" alt="Vishal Kushwaha’s GitHub contribution calendar for the past year" width="722" height="112" decoding="async" referrerpolicy="no-referrer"></div><p id="github-activity-status" role="status">Loading contribution graph…</p><p class="github-activity-note">Public contribution calendar via GHChart. Counts reflect contributions, not commits alone.</p></div><div class="github-foot"><span>✳ GSSoC '25 open-source contributor¹</span><span id="github-source">Snapshot from public GitHub profile · Nov 2026</span></div></div></section>
     <section class="certificates section-pad" id="certificates" aria-labelledby="cert-title">${label("08", "STAYING A STUDENT")}<div class="section-heading"><h2 id="cert-title">Always room to <em>grow.</em></h2><p>A few stops on the learning journey.<br>Listed on my public GitHub profile.</p></div><div class="cert-list">${[
       ["01", "DSA in Python", "GeeksforGeeks", "PROBLEM SOLVING"],
       ["02", "Data Science", "GeeksforGeeks", "DATA & ANALYTICS"],
@@ -155,13 +156,14 @@ document.querySelector("#app").innerHTML = `
       )
       .join(
         "",
-      )}</div><div class="internship-certificates"><h3>Internship & program certificates</h3><p>StudifySuccess and GirlScript Summer of Code certificate files will be added when available.</p><a class="text-link" href="#experience">Explore my experience ${icon("arrow")}</a></div><p class="source-note">¹ Education, experience, achievements, and course titles are based on my résumé and <a href="${github}#about-me-" target="_blank" rel="noopener noreferrer">public profile</a>. Certificate files and an updated résumé will be added when available.</p></section>
-    <section class="contact section-pad" id="contact" aria-labelledby="contact-title"><div class="contact-top">${label("09", "GOOD THINGS START WITH A HELLO")}<span class="availability"><i></i> LET'S MAKE SOMETHING GOOD</span></div><h2 id="contact-title">HAVE A GOOD IDEA?<br>LET'S <em>talk.</em><a class="contact-arrow" href="mailto:${email}" aria-label="Start an email to Vishal">${icon("arrow")}</a></h2><div class="contact-bottom"><div class="contact-email"><a href="mailto:${email}">${email}</a><button id="copy-email" aria-label="Copy email address">${icon("copy")}</button><span id="copy-status" role="status"></span><p>A project, an opportunity, or just a hello.<br>My inbox is a pretty good place to start.</p></div><div class="contact-links">${external(linkedin, "LinkedIn")}${external(github, "GitHub")}<a href="tel:+918726730327">+91 87267 30327 ${icon("phone")}</a><a href="mailto:${email}?subject=R%C3%A9sum%C3%A9%20request">Request résumé ${icon("arrow")}</a></div></div></section>
+      )}</div><div class="internship-certificates"><h3>Internship & program certificates</h3><p>Certificates earned through my internship at StudifySuccess and participation in GirlScript Summer of Code.</p><a class="text-link" href="#experience">Explore my experience ${icon("arrow")}</a></div><p class="source-note">¹ Education, experience, achievements, and course titles are based on my résumé and <a href="${github}#about-me-" target="_blank" rel="noopener noreferrer">public profile</a>.</p></section>
+    <section class="contact section-pad" id="contact" aria-labelledby="contact-title"><div class="contact-top">${label("09", "GOOD THINGS START WITH A HELLO")}<span class="availability"><i></i> LET'S MAKE SOMETHING GOOD</span></div><h2 id="contact-title">HAVE A GOOD IDEA?<br>LET'S <em>talk.</em><a class="contact-arrow" href="mailto:${email}" aria-label="Start an email to Vishal">${icon("arrow")}</a></h2>${contactFormMarkup(email)}<div class="contact-bottom"><div class="contact-email"><a href="mailto:${email}">${email}</a><button id="copy-email" aria-label="Copy email address">${icon("copy")}</button><span id="copy-status" role="status"></span><p>A project, an opportunity, or just a hello.<br>My inbox is a pretty good place to start.</p></div><div class="contact-links">${external(linkedin, "LinkedIn")}${external(github, "GitHub")}<a href="tel:+918726730327">+91 87267 30327 ${icon("phone")}</a><a href="mailto:${email}?subject=R%C3%A9sum%C3%A9%20request">Request résumé ${icon("arrow")}</a></div></div></section>
   </main>
   <footer id="site-footer"><a class="footer-logo" href="#home">vishal<span>.</span></a><p>BUILT WITH INTENT. AND A LITTLE TOO MUCH CURIOSITY.</p><span>© ${new Date().getFullYear()} VISHAL KUSHWAHA</span><a href="#home" class="back-top" aria-label="Back to top">↑</a></footer>
 `;
 
 setupTheme();
+setupContactForm(email);
 
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const desktop = window.matchMedia("(min-width: 901px)");
@@ -357,6 +359,20 @@ document.querySelector("#copy-email").addEventListener("click", async () => {
     status.textContent = "";
   }, 4500);
 });
+
+const activityChart = document.querySelector("#github-activity-chart");
+const activityStatus = document.querySelector("#github-activity-status");
+function updateActivityChart() {
+  const loaded = activityChart.naturalWidth > 0;
+  activityChart.hidden = !loaded;
+  activityStatus.hidden = loaded;
+  if (!loaded) {
+    activityStatus.textContent = "Contribution graph unavailable right now. Use View activity to see the calendar on GitHub.";
+  }
+}
+activityChart.addEventListener("load", updateActivityChart);
+activityChart.addEventListener("error", updateActivityChart);
+if (activityChart.complete) updateActivityChart();
 
 // Keep a useful, linked snapshot visible if GitHub is offline or rate-limited.
 async function syncGithub() {

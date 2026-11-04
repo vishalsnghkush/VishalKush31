@@ -27,6 +27,9 @@ async function openPage(options = {}, offline = false, hash = "") {
       : { public_repos: 23 };
     return route.fulfill({ json: body });
   });
+  await page.route("https://ghchart.rshah.org/**", route => offline
+    ? route.abort()
+    : route.fulfill({ contentType: "image/svg+xml", body: '<svg xmlns="http://www.w3.org/2000/svg" width="722" height="112"><rect width="722" height="112" fill="#94556d"/></svg>' }));
   await page.goto(url + hash);
   await page.locator("main > section:visible").waitFor();
   return { context, page };
@@ -73,6 +76,92 @@ test("AgriVerse displays original screenshots and switches between them", async 
     await page.locator('[data-project="agriverse-web"]').getByRole("button", { name: "Disease analysis", exact: true }).click();
     assert.match(await page.locator('[data-project="agriverse-web"] .project-screenshot').getAttribute("alt"), /apple black rot/);
     assert.equal(await page.locator('[data-project="precisionprep"] .project-screenshot').count(), 0);
+    await context.close();
+  }
+});
+
+test("education, project-based skills, and DSA links reflect the updated profile", async () => {
+  for (const width of [1440, 390]) {
+    const { context, page } = await openPage({ viewport: { width, height: 1000 } }, false, "#academics");
+    assert.equal(await page.locator(".education-score > strong").textContent(), "8.45/10");
+    await noOverflow(page);
+    await goView(page, "skills");
+    const cards = page.locator(".skill-card");
+    assert.equal(await cards.count(), 4);
+    const expectedSkills = [
+      ["Python", "JavaScript", "TypeScript", "C", "C++", "HTML & CSS"],
+      ["React", "Next.js", "React Native", "Expo", "Capacitor", "Tailwind CSS", "Redux Toolkit", "React Native SVG", "Chart.js", "Vite"],
+      ["PyTorch", "TensorFlow", "scikit-learn", "Pandas", "Computer Vision", "SciPy", "scikit-image", "NetworkX", "RapidFuzz", "LightGBM", "XGBoost", "Matplotlib"],
+      ["Flask", "FastAPI", "PostgreSQL", "MySQL", "Turso", "Firebase", "Drizzle ORM", "Git & GitHub", "Docker"],
+    ];
+    for (const [index, skills] of expectedSkills.entries()) {
+      assert.deepEqual(await cards.nth(index).locator(".skill-tags > span").allTextContents(), skills);
+    }
+    await noOverflow(page);
+    await goView(page, "dsa");
+    assert.equal(await page.locator(".dsa-profile-links a").count(), 1);
+    assert.equal(await page.locator(".dsa-profile-links a").getAttribute("href"), "https://leetcode.com/u/Vishalsnghkush31/");
+    assert.equal(await page.getByRole("link", { name: "DSA practice on GitHub" }).count(), 0);
+    await noOverflow(page);
+    await context.close();
+  }
+});
+
+test("past-year GitHub activity loads with an offline fallback and certificates have no pending wording", async () => {
+  for (const width of [1440, 390]) {
+    const { context, page } = await openPage({ viewport: { width, height: 1000 } }, false, "#github");
+    await page.waitForFunction(() => document.querySelector("#github-activity-chart").naturalWidth > 0);
+    assert.ok(await page.locator("#github-activity-chart").isVisible());
+    assert.equal(await page.locator("#github-activity-status").isVisible(), false);
+    assert.equal(await page.getByRole("link", { name: "View activity" }).getAttribute("href"), "https://github.com/vishalsnghkush?tab=overview");
+    await noOverflow(page);
+    await goView(page, "certificates");
+    assert.doesNotMatch(await page.locator("#certificates").textContent(), /when available|will be added|to be added/i);
+    await goView(page, "experience");
+    assert.deepEqual(await page.locator(".role-certificate").allTextContents(), ["Certificate earned", "Certificate earned"]);
+    await context.close();
+    const offline = await openPage({ viewport: { width, height: 1000 } }, true, "#github");
+    await offline.page.locator("#github-activity-status").filter({ hasText: "Contribution graph unavailable" }).waitFor();
+    assert.equal(await offline.page.locator("#github-activity-chart").isVisible(), false);
+    assert.ok(await offline.page.getByRole("link", { name: "View activity" }).isVisible());
+    await noOverflow(offline.page);
+    await offline.context.close();
+  }
+});
+
+test("contact form validates, preserves failed drafts, and submits with a softer theme", async () => {
+  for (const [width, colorScheme] of [[1440, "dark"], [390, "dark"], [390, "light"]]) {
+    const { context, page } = await openPage({ viewport: { width, height: 1000 }, colorScheme }, false, "#contact");
+    const requests = [];
+    await page.route("https://formsubmit.co/**", async route => {
+      requests.push(route.request().postDataJSON());
+      await route.fulfill({ json: { success: requests.length > 1 ? "true" : "false" } });
+    });
+    const button = page.getByRole("button", { name: "Send message" });
+    const status = page.locator("#contact-form-status");
+    assert.equal(await page.locator("#contact").evaluate(el => getComputedStyle(el).backgroundColor), colorScheme === "dark" ? "rgb(45, 36, 43)" : "rgb(240, 220, 227)");
+    await button.click();
+    assert.equal(requests.length, 0);
+    await page.getByLabel("Your name", { exact: true }).fill("Test Visitor");
+    await page.getByLabel("Email address", { exact: true }).fill("not-an-email");
+    await page.getByLabel("Your message", { exact: true }).fill("Hello! I'd like to discuss a project.");
+    await button.click();
+    assert.equal(requests.length, 0);
+    await page.getByLabel("Email address", { exact: true }).fill("visitor@example.com");
+    await button.click();
+    await status.filter({ hasText: "Couldn't send your message" }).waitFor();
+    assert.equal(await page.locator("#contact-message").inputValue(), "Hello! I'd like to discuss a project.");
+    assert.ok(await button.isEnabled());
+    await button.click();
+    await status.filter({ hasText: "Message submitted" }).waitFor();
+    assert.equal(requests.length, 2);
+    assert.equal(requests[1].email, "visitor@example.com");
+    assert.equal(requests[1].name, "Test Visitor");
+    assert.equal(requests[1].message, "Hello! I'd like to discuss a project.");
+    assert.equal(await page.locator("#contact-message").inputValue(), "");
+    assert.ok(await button.isEnabled());
+    await noOverflow(page);
+    await page.screenshot({ path: `test-results/contact-form-${colorScheme}-${width}.png`, fullPage: true });
     await context.close();
   }
 });

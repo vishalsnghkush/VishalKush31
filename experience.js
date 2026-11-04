@@ -27,7 +27,7 @@ export const experienceView = `
             <li class="role-skill">Agile</li>
             <li class="role-skill">Git</li>
           </ul>
-          <p class="role-certificate">Certificate to be added</p>
+          <p class="role-certificate">Certificate earned</p>
         </div>
       </article>
 
@@ -50,7 +50,7 @@ export const experienceView = `
             <li class="role-skill">JavaScript</li>
             <li class="role-skill">Git / GitHub</li>
           </ul>
-          <p class="role-certificate">Certificate to be added</p>
+          <p class="role-certificate">Certificate earned</p>
         </div>
       </article>
     </div>

@@ -133,10 +133,14 @@ test("contact form validates, preserves failed drafts, and submits with a softer
   for (const [width, colorScheme] of [[1440, "dark"], [390, "dark"], [390, "light"]]) {
     const { context, page } = await openPage({ viewport: { width, height: 1000 }, colorScheme }, false, "#contact");
     const requests = [];
-    await page.route("https://formsubmit.co/**", async route => {
+    await page.route("https://formspree.io/f/meaavkyo", async route => {
       requests.push(route.request().postDataJSON());
-      await route.fulfill({ json: { success: requests.length > 1 ? "true" : "false" } });
+      await route.fulfill(requests.length > 1
+        ? { json: { ok: true } }
+        : { status: 422, json: { errors: [{ message: "Please verify the recipient email." }] } });
     });
+    assert.equal(await page.locator("#contact-form").getAttribute("action"), "https://formspree.io/f/meaavkyo");
+    assert.match(await page.locator(".contact-form-privacy").textContent(), /Formspree/);
     const button = page.getByRole("button", { name: "Send message" });
     const status = page.locator("#contact-form-status");
     assert.equal(await page.locator("#contact").evaluate(el => getComputedStyle(el).backgroundColor), colorScheme === "dark" ? "rgb(45, 36, 43)" : "rgb(240, 220, 227)");
@@ -150,6 +154,7 @@ test("contact form validates, preserves failed drafts, and submits with a softer
     await page.getByLabel("Email address", { exact: true }).fill("visitor@example.com");
     await button.click();
     await status.filter({ hasText: "Couldn't send your message" }).waitFor();
+    assert.match(await status.textContent(), /Please verify the recipient email/);
     assert.equal(await page.locator("#contact-message").inputValue(), "Hello! I'd like to discuss a project.");
     assert.ok(await button.isEnabled());
     await button.click();
@@ -157,6 +162,9 @@ test("contact form validates, preserves failed drafts, and submits with a softer
     assert.equal(requests.length, 2);
     assert.equal(requests[1].email, "visitor@example.com");
     assert.equal(requests[1].name, "Test Visitor");
+    assert.equal(requests[1]._gotcha, "");
+    assert.equal(requests[1]._subject, "New message from your portfolio");
+    assert.equal("_template" in requests[1], false);
     assert.equal(requests[1].message, "Hello! I'd like to discuss a project.");
     assert.equal(await page.locator("#contact-message").inputValue(), "");
     assert.ok(await button.isEnabled());
@@ -164,6 +172,48 @@ test("contact form validates, preserves failed drafts, and submits with a softer
     await page.screenshot({ path: `test-results/contact-form-${colorScheme}-${width}.png`, fullPage: true });
     await context.close();
   }
+});
+
+test("contact form handles Formspree outages and blocks duplicate and honeypot submissions", async () => {
+  const { context, page } = await openPage({}, false, "#contact");
+  let requests = 0;
+  let finishRequest;
+  await page.route("https://formspree.io/f/meaavkyo", async route => {
+    requests++;
+    if (requests === 1) {
+      await route.fulfill({ status: 503, contentType: "text/html", body: "Service unavailable" });
+    } else if (requests === 2) {
+      await route.abort();
+    } else {
+      await new Promise(resolve => { finishRequest = resolve; });
+      await route.fulfill({ json: { ok: true } });
+    }
+  });
+  await page.locator("#contact-name").fill("Test Visitor");
+  await page.locator("#contact-email").fill("visitor@example.com");
+  await page.locator("#contact-message").fill("Please keep this draft if the service is offline.");
+  const button = page.getByRole("button", { name: "Send message" });
+  const status = page.locator("#contact-form-status");
+  await button.click();
+  await status.filter({ hasText: "HTTP 503" }).waitFor();
+  await button.click();
+  await status.filter({ hasText: "Check your connection" }).waitFor();
+  assert.equal(await page.locator("#contact-message").inputValue(), "Please keep this draft if the service is offline.");
+  await page.locator("#contact-website").evaluate(el => { el.value = "spam"; });
+  await button.click();
+  assert.equal(requests, 2);
+  await page.locator("#contact-website").evaluate(el => { el.value = ""; });
+  await button.click();
+  await page.waitForFunction(() => document.querySelector("#contact-form").getAttribute("aria-busy") === "true");
+  assert.ok(await page.getByRole("button", { name: "Sending…" }).isDisabled());
+  await page.locator("#contact-form").evaluate(form => {
+    form.dispatchEvent(new Event("submit", { bubbles: true, cancelable: true }));
+  });
+  assert.equal(requests, 3);
+  finishRequest();
+  await status.filter({ hasText: "Message submitted" }).waitFor();
+  assert.equal(await page.locator("#contact-form").getAttribute("aria-busy"), null);
+  await context.close();
 });
 
 test("experience shows the completed internship and a project playground", async () => {

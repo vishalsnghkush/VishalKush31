@@ -118,7 +118,7 @@ test("past-year GitHub activity loads with an offline fallback and certificates 
     await goView(page, "certificates");
     assert.doesNotMatch(await page.locator("#certificates").textContent(), /when available|will be added|to be added/i);
     await goView(page, "experience");
-    assert.deepEqual(await page.locator(".role-certificate").allTextContents(), ["Certificate earned", "Certificate earned"]);
+    assert.equal(await page.getByText("Certificate earned", { exact: true }).count(), 0);
     await context.close();
     const offline = await openPage({ viewport: { width, height: 1000 } }, true, "#github");
     await offline.page.locator("#github-activity-status").filter({ hasText: "Contribution graph unavailable" }).waitFor();
@@ -261,11 +261,32 @@ test("contact form handles Formspree outages and blocks duplicate and honeypot s
 });
 
 test("experience shows the completed internship and a project playground", async () => {
-  for (const width of [1440, 390]) {
+  for (const width of [1440, 390, 320]) {
     const { context, page } = await openPage({ viewport: { width, height: 1000 } }, false, "#experience");
     const internship = page.locator(".role-card").filter({ has: page.locator("#experience-studify-title") });
     assert.equal(await internship.locator(".role-period").textContent(), "Mar 2026–Aug 2026");
     assert.equal(await internship.locator(".role-status").textContent(), "Completed internship");
+        const documents = internship.locator(".role-document");
+        assert.equal(await documents.count(), 3);
+        const files = ["Vishal Kushwaha_CERTIFICATE.pdf", "Vishal Kushwaha_Best Intern Certificate - Studifysuccess.pdf", "Vishal Kushwaha_LOR.pdf"];
+        for (const [index, file] of files.entries()) {
+          const link = documents.nth(index);
+          assert.ok(await link.isVisible());
+          assert.equal(await link.getAttribute("href"), `/certificates/experience/${encodeURIComponent(file)}`);
+          assert.equal(await link.getAttribute("target"), "_blank");
+          assert.equal(await link.getAttribute("rel"), "noopener noreferrer");
+          const response = await page.request.get(new URL(await link.getAttribute("href"), url).href);
+          assert.ok(response.ok());
+          assert.match(response.headers()["content-type"], /application\/pdf/);
+          assert.equal((await response.body()).subarray(0, 5).toString(), "%PDF-");
+          await link.focus();
+          assert.ok(await link.evaluate(el => el.matches(":focus-visible")));
+          assert.ok((await link.boundingBox()).height >= 44);
+        }
+        const girlscript = page.locator('.role-card[aria-labelledby="experience-gssoc-title"]');
+        assert.equal(await girlscript.locator(".role-document").count(), 0);
+        assert.equal(await page.getByText("Certificate earned", { exact: true }).count(), 0);
+        await page.screenshot({ path: `test-results/experience-documents-${width}.png`, fullPage: true });
     assert.equal(await page.getByText("More to come", { exact: true }).count(), 0);
     assert.ok(await page.locator("#experience-playground-title").isVisible());
     await noOverflow(page);
@@ -379,8 +400,8 @@ test("dark theme follows system, persists a toggle, and works without storage", 
   await page.getByRole('button', { name: 'Switch to dark theme' }).click();
   await goView(page, 'experience');
   assert.equal(await page.locator('.role-card').count(), 2);
-  assert.equal(await page.locator('.role-certificate').count(), 2);
-  assert.equal(await page.locator('.role-certificate a').count(), 0);
+  assert.equal(await page.locator('.role-certificate').count(), 0);
+  assert.equal(await page.locator('.role-document').count(), 3);
   await page.screenshot({ path: 'test-results/dark-experience.png', fullPage: true });
   await noOverflow(page);
   await goView(page, 'dsa');

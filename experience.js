@@ -1,3 +1,9 @@
+const studifyDocuments = [
+  ["Internship Certificate", "Vishal Kushwaha_CERTIFICATE.pdf"],
+  ["Best Intern", "Vishal Kushwaha_Best Intern Certificate - Studifysuccess.pdf"],
+  ["Letter of Recommendation", "Vishal Kushwaha_LOR.pdf"],
+];
+
 export const experienceView = `
 <section class="experience section-pad" id="experience" aria-labelledby="experience-title">
   <div class="experience-inner">
@@ -27,7 +33,9 @@ export const experienceView = `
             <li class="role-skill">Agile</li>
             <li class="role-skill">Git</li>
           </ul>
-          <p class="role-certificate">Certificate earned</p>
+          <ul class="role-documents" aria-label="StudifySuccess documents">
+            ${studifyDocuments.map(([title, file]) => `<li><a class="role-document" href="${import.meta.env.BASE_URL}certificates/experience/${encodeURIComponent(file)}" target="_blank" rel="noopener noreferrer" aria-label="View ${title} PDF (opens in a new tab)"><span>${title}</span><span class="role-document-format" aria-hidden="true">PDF ↗</span></a></li>`).join("")}
+          </ul>
         </div>
       </article>
 
@@ -50,7 +58,7 @@ export const experienceView = `
             <li class="role-skill">JavaScript</li>
             <li class="role-skill">Git / GitHub</li>
           </ul>
-          <p class="role-certificate">Certificate earned</p>
+
         </div>
       </article>
     </div>

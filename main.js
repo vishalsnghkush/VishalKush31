@@ -11,6 +11,7 @@ const github = "https://github.com/vishalsnghkush";
 const linkedin = "https://www.linkedin.com/in/vishal-kushwaha-253891275/";
 const email = "vishalsnghkush31@gmail.com";
 const leetcode = "https://leetcode.com/u/Vishalsnghkush31/";
+const resume = "https://drive.google.com/file/d/1bD52DZPibzIIgjYtEWanllf5yxwSut1h/view?usp=sharing";
 const icons = {
   arrow: '<path d="M7 17 17 7M7 7h10v10"/>',
   down: '<path d="M12 4v16m-7-7 7 7 7-7"/>',
@@ -157,7 +158,7 @@ document.querySelector("#app").innerHTML = `
       .join(
         "",
       )}</div><div class="internship-certificates"><h3>Internship & program certificates</h3><p>Certificates earned through my internship at StudifySuccess and participation in GirlScript Summer of Code.</p><a class="text-link" href="#experience">Explore my experience ${icon("arrow")}</a></div><p class="source-note">¹ Education, experience, achievements, and course titles are based on my résumé and <a href="${github}#about-me-" target="_blank" rel="noopener noreferrer">public profile</a>.</p></section>
-    <section class="contact section-pad" id="contact" aria-labelledby="contact-title"><div class="contact-top">${label("09", "GOOD THINGS START WITH A HELLO")}<span class="availability"><i></i> LET'S MAKE SOMETHING GOOD</span></div><h2 id="contact-title">HAVE A GOOD IDEA?<br>LET'S <em>talk.</em><a class="contact-arrow" href="mailto:${email}" aria-label="Start an email to Vishal">${icon("arrow")}</a></h2>${contactFormMarkup()}<div class="contact-bottom"><div class="contact-email"><a href="mailto:${email}">${email}</a><button id="copy-email" aria-label="Copy email address">${icon("copy")}</button><span id="copy-status" role="status"></span><p>A project, an opportunity, or just a hello.<br>My inbox is a pretty good place to start.</p></div><div class="contact-links">${external(linkedin, "LinkedIn")}${external(github, "GitHub")}<a href="tel:+918726730327">+91 87267 30327 ${icon("phone")}</a><a href="mailto:${email}?subject=R%C3%A9sum%C3%A9%20request">Request résumé ${icon("arrow")}</a></div></div></section>
+    <section class="contact section-pad" id="contact" aria-labelledby="contact-title"><div class="contact-top">${label("09", "GOOD THINGS START WITH A HELLO")}<span class="availability"><i></i> LET'S MAKE SOMETHING GOOD</span></div><h2 id="contact-title">HAVE A GOOD IDEA?<br>LET'S <em>talk.</em><a class="contact-arrow" href="mailto:${email}" aria-label="Start an email to Vishal">${icon("arrow")}</a></h2>${contactFormMarkup()}<div class="contact-bottom"><div class="contact-email"><a href="mailto:${email}">${email}</a><button id="copy-email" aria-label="Copy email address">${icon("copy")}</button><span id="copy-status" role="status"></span><p>A project, an opportunity, or just a hello.<br>My inbox is a pretty good place to start.</p></div><div class="contact-links">${external(linkedin, "LinkedIn")}${external(github, "GitHub")}<a href="tel:+918726730327">+91 87267 30327 ${icon("phone")}</a>${external(resume, "View résumé")}</div></div></section>
   </main>
   <footer id="site-footer"><a class="footer-logo" href="#home">vishal<span>.</span></a><p>BUILT WITH INTENT. AND A LITTLE TOO MUCH CURIOSITY.</p><span>© ${new Date().getFullYear()} VISHAL KUSHWAHA</span><a href="#home" class="back-top" aria-label="Back to top">↑</a></footer>
 `;

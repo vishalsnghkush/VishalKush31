@@ -129,6 +129,17 @@ test("past-year GitHub activity loads with an offline fallback and certificates 
   }
 });
 
+test("contact resume link opens the supplied Google Drive file", async () => {
+  const { context, page } = await openPage({}, false, "#contact");
+  const resume = page.getByRole("link", { name: "View résumé" });
+  assert.ok(await resume.isVisible());
+  assert.equal(await resume.getAttribute("href"), "https://drive.google.com/file/d/1bD52DZPibzIIgjYtEWanllf5yxwSut1h/view?usp=sharing");
+  assert.equal(await resume.getAttribute("target"), "_blank");
+  assert.equal(await resume.getAttribute("rel"), "noopener noreferrer");
+  assert.equal(await page.getByRole("link", { name: "Request résumé" }).count(), 0);
+  await context.close();
+});
+
 test("contact form validates, preserves failed drafts, and submits with a softer theme", async () => {
   for (const [width, colorScheme] of [[1440, "dark"], [390, "dark"], [390, "light"]]) {
     const { context, page } = await openPage({ viewport: { width, height: 1000 }, colorScheme }, false, "#contact");

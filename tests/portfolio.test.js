@@ -129,6 +129,39 @@ test("past-year GitHub activity loads with an offline fallback and certificates 
   }
 });
 
+test("certificate links open the supplied originals without crowding the layout", async () => {
+  for (const [width, colorScheme] of [[1440, "light"], [390, "light"], [320, "dark"]]) {
+    const { context, page } = await openPage({ viewport: { width, height: 1000 }, colorScheme }, false, "#certificates");
+    assert.equal(await page.locator(".certificate").count(), 4);
+    assert.equal(await page.locator(".cert-link").count(), 3);
+    assert.equal(await page.locator(".certificate").first().locator("a").count(), 0);
+    for (const [title, file] of [["Data Science", "Data_Science.jpg"], ["IBM AI Fundamentals", "IBM.jpg"], ["Quantum Computing", "Quantum_Computing.jpg"]]) {
+      const link = page.getByRole("link", { name: `View ${title} certificate (opens in a new tab)`, exact: true });
+      assert.ok(await link.isVisible());
+      assert.equal(await link.getAttribute("href"), `/certificates/${file}`);
+      assert.equal(await link.getAttribute("target"), "_blank");
+      assert.equal(await link.getAttribute("rel"), "noopener noreferrer");
+      const response = await page.request.get(new URL(await link.getAttribute("href"), url).href);
+      assert.ok(response.ok());
+      assert.match(response.headers()["content-type"], /image\/jpeg/);
+      const box = await link.boundingBox();
+      assert.ok(box.width >= 44 && box.height >= 44);
+    }
+    const link = page.locator(".cert-link").first();
+    await link.focus();
+    assert.ok(await link.evaluate(el => el.matches(":focus-visible")));
+    const popupPromise = page.waitForEvent("popup");
+    await link.click();
+    const popup = await popupPromise;
+    await popup.waitForLoadState();
+    assert.ok(await popup.locator("img").evaluate(el => el.complete && el.naturalWidth > 0));
+    await popup.close();
+    await noOverflow(page);
+    await page.screenshot({ path: `test-results/certificates-${width}-${colorScheme}.png` });
+    await context.close();
+  }
+});
+
 test("contact resume link opens the supplied Google Drive file", async () => {
   const { context, page } = await openPage({}, false, "#contact");
   const resume = page.getByRole("link", { name: "View résumé" });

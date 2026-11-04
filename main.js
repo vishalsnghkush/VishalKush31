@@ -145,15 +145,15 @@ document.querySelector("#app").innerHTML = `
       .join(
         "",
       )}</div></div><div class="github-activity" aria-labelledby="github-activity-title"><div class="github-activity-heading"><div><h3 id="github-activity-title">A year of building.</h3><p>GitHub contributions over the past 12 months — commits, pull requests, and more.</p></div>${external(github + "?tab=overview", "View activity", "text-link")}</div><div class="github-activity-scroll" tabindex="0" role="region" aria-label="Past-year GitHub contribution graph; scroll horizontally on smaller screens"><img id="github-activity-chart" src="https://ghchart.rshah.org/94556d/vishalsnghkush" alt="Vishal Kushwaha’s GitHub contribution calendar for the past year" width="722" height="112" decoding="async" referrerpolicy="no-referrer"></div><p id="github-activity-status" role="status">Loading contribution graph…</p><p class="github-activity-note">Public contribution calendar via GHChart. Counts reflect contributions, not commits alone.</p></div><div class="github-foot"><span>✳ GSSoC '25 open-source contributor¹</span><span id="github-source">Snapshot from public GitHub profile · Nov 2026</span></div></div></section>
-    <section class="certificates section-pad" id="certificates" aria-labelledby="cert-title">${label("08", "STAYING A STUDENT")}<div class="section-heading"><h2 id="cert-title">Always room to <em>grow.</em></h2><p>A few stops on the learning journey.<br>Listed on my public GitHub profile.</p></div><div class="cert-list">${[
+    <section class="certificates section-pad" id="certificates" aria-labelledby="cert-title">${label("08", "STAYING A STUDENT")}<div class="section-heading"><h2 id="cert-title">Always room to <em>grow.</em></h2><p>A few stops on the learning journey.<br>Open a certificate to see the original.</p></div><div class="cert-list">${[
       ["01", "DSA in C++", "PW", "PROBLEM SOLVING"],
-      ["02", "Data Science", "GeeksforGeeks", "DATA & ANALYTICS"],
-      ["03", "IBM AI Fundamentals", "IBM", "ARTIFICIAL INTELLIGENCE"],
-      ["04", "Quantum Computing", "CDAC", "EXPLORING WHAT’S NEXT"],
+      ["02", "Data Science", "GeeksforGeeks", "DATA & ANALYTICS", "Data_Science.jpg"],
+      ["03", "IBM AI Fundamentals", "IBM", "ARTIFICIAL INTELLIGENCE", "IBM.jpg"],
+      ["04", "Quantum Computing", "CDAC", "EXPLORING WHAT’S NEXT", "Quantum_Computing.jpg"],
     ]
       .map(
-        ([n, title, issuer, cat]) =>
-          `<article class="certificate"><span>${n}</span><h3>${title}<small>${issuer}</small></h3><span class="cert-category">${cat}</span><span class="cert-symbol" aria-hidden="true">✧</span></article>`,
+        ([n, title, issuer, cat, file]) =>
+          `<article class="certificate"><span>${n}</span><h3>${title}<small>${issuer}</small></h3><span class="cert-category">${cat}</span>${file ? `<a class="cert-link" href="${import.meta.env.BASE_URL}certificates/${file}" target="_blank" rel="noopener noreferrer" aria-label="View ${title} certificate (opens in a new tab)"><span>View certificate</span>${icon("arrow")}</a>` : '<span class="cert-symbol" aria-hidden="true">✧</span>'}</article>`,
       )
       .join(
         "",

@@ -1903,6 +1903,41 @@ p {
   margin-left: auto;
   letter-spacing: 0.7px;
 }
+.certificate h3 {
+  min-width: 0;
+}
+.cert-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 8px 12px;
+  margin-left: auto;
+  flex-shrink: 0;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--ink);
+  font: 12px var(--mono);
+  white-space: nowrap;
+}
+.cert-link:hover {
+  border-color: var(--accent);
+  background: var(--pink-light);
+}
+.cert-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+@media (max-width: 650px) {
+  .cert-link {
+    width: 44px;
+    padding: 10px;
+  }
+  .cert-link > span {
+    display: none;
+  }
+}
 .cert-symbol {
   font-size: 32.3px;
   color: #b98c9e;

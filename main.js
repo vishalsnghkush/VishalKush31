@@ -49,7 +49,7 @@ const navigation = [
 function projectArt(p) {
   if (p.screenshots?.length) {
     const first = p.screenshots[0];
-    return `<div class="project-screenshots"><a class="project-screenshot-link" href="${first.src}" target="_blank" rel="noopener noreferrer" aria-label="Open ${p.name} screenshot at full size"><img class="project-screenshot" src="${first.src}" alt="${first.alt}" width="1567" height="803" decoding="async"></a>${p.screenshots.length > 1 ? `<div class="screenshot-controls" role="group" aria-label="${p.name} screenshots">${p.screenshots.map((shot, i) => `<button type="button" data-screenshot="${i}" aria-pressed="${i === 0}">${shot.label}</button>`).join("")}</div>` : ""}</div>`;
+    return `<div class="project-screenshots${p.category === "Mobile" ? " project-screenshots-portrait" : ""}"><a class="project-screenshot-link" href="${first.src}" target="_blank" rel="noopener noreferrer" aria-label="Open ${p.name} screenshot at full size"><img class="project-screenshot" src="${first.src}" alt="${first.alt}" ${p.category === "Mobile" ? 'width="687" height="1566"' : 'width="1567" height="803"'} decoding="async"></a>${p.screenshots.length > 1 ? `<div class="screenshot-controls" role="group" aria-label="${p.name} screenshots">${p.screenshots.map((shot, i) => `<button type="button" data-screenshot="${i}" aria-pressed="${i === 0}">${shot.label}</button>`).join("")}</div>` : ""}</div>`;
   }
   const shell = (content) =>
     `<div class="study-window"><div class="window-bar"><span class="window-dots">● ● ●</span><span>${p.name.toLowerCase().replaceAll(" ", "")} / workspace</span><span>↗</span></div>${content}</div>`;

@@ -106,6 +106,13 @@ test("uploaded project screenshots load, switch, and preserve their full image",
       assert.equal(await link.getAttribute("href"), await image.getAttribute("src"));
       assert.equal(await link.getAttribute("target"), "_blank");
       assert.equal(await link.getAttribute("rel"), "noopener noreferrer");
+      if (["studify-success", "agriverse-mobile"].includes(id)) {
+        const dimensions = await link.boundingBox();
+        assert.ok(dimensions.height > dimensions.width * 2, "App screenshots use a portrait frame, not a wide white panel");
+        const imageDimensions = await image.boundingBox();
+        assert.ok(Math.abs(dimensions.width - imageDimensions.width) <= 10);
+        assert.equal(await link.evaluate(el => getComputedStyle(el).backgroundColor), "rgb(36, 35, 35)");
+      }
     }
     const precision = page.locator('[data-project="precisionprep"]');
     await precision.getByRole("button", { name: "CBT practice", exact: true }).click();

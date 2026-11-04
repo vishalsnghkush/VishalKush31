@@ -39,7 +39,7 @@ Deploy this folder with Vercel or Netlify: build command `npm run build`, output
 
 Project and contact links come from the supplied Google document and user-provided details. Education, internship, DSA achievements, and course titles come from Vishal's public GitHub profile README, checked in November 2026. They are self-reported, not independently certified. Project descriptions and stacks were checked against repository documentation/manifests. Collaborative projects link to the repositories in the supplied document; this site does not claim exclusive authorship. The retinal-health project is explicitly presented as experimental research, not a validated medical device.
 
-**Before publishing:** review all personal information and project descriptions, confirm the current internship/CGPA, and decide whether to publish the phone number. Exact contribution descriptions and original screenshots can be added later. The Certificates view links to the original Data Science, IBM AI Fundamentals, and Quantum Computing images in `public/certificates/`. Links respect Vite's deployment base path and open in a new tab; DSA remains unlinked until its certificate is supplied. The contact section's “View résumé” action opens the owner-provided Google Drive résumé in a new tab. Ensure its sharing setting allows anyone with the link to view it.
+**Before publishing:** review all personal information and project descriptions, confirm the current internship/CGPA, and decide whether to publish the phone number. Exact contribution descriptions and further screenshots can be added later. The Certificates view links to the original Data Science, IBM AI Fundamentals, and Quantum Computing images in `public/certificates/`. Links respect Vite's deployment base path and open in a new tab; DSA remains unlinked until its certificate is supplied. The contact section's “View résumé” action opens the owner-provided Google Drive résumé in a new tab. Ensure its sharing setting allows anyone with the link to view it.
 
 ### Navigation & layout
 
@@ -47,7 +47,7 @@ Home displays only the introduction, original artwork, and “Explore my work”
 
 ### Project animation
 
-On desktop, scrolling advances a sticky, layered project-card deck. On narrow screens or when reduced motion is requested, all cards become a normal accessible grid. Filters work in both layouts. Illustrations are original CSS/SVG interface studies, clearly labeled as such; they are **not screenshots** of the deployed applications.
+On desktop, scrolling advances a sticky, layered project-card deck. On narrow screens or when reduced motion is requested, all cards become a normal accessible grid. Filters work in both layouts. AgriVerse, PrecisionPrep, Adaptly, Studify Success, Diabetic Retinopathy, CPU Scheduler Pro, and AgriVerse Mobile display owner-supplied screenshots from `public/images/projects/`. Images remain uncropped and open at full size in a new tab; projects with multiple screenshots have a labeled switcher. Remaining projects use original CSS/SVG interface studies, clearly labeled as illustrations rather than product screenshots.
 
 ### Contact & data
 

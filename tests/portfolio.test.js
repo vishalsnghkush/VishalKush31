@@ -75,7 +75,54 @@ test("AgriVerse displays original screenshots and switches between them", async 
     await page.locator('[data-filter="Web"]').click();
     await page.locator('[data-project="agriverse-web"]').getByRole("button", { name: "Disease analysis", exact: true }).click();
     assert.match(await page.locator('[data-project="agriverse-web"] .project-screenshot').getAttribute("alt"), /apple black rot/);
-    assert.equal(await page.locator('[data-project="precisionprep"] .project-screenshot').count(), 0);
+    assert.equal(await page.locator('[data-project="precisionprep"] .project-screenshot').count(), 1);
+    await context.close();
+  }
+});
+
+test("uploaded project screenshots load, switch, and preserve their full image", async () => {
+  const expected = [
+    ["precisionprep", "PrecisionPrep/1.png", 2],
+    ["adaptly", "Adapty/1.jpeg", 0],
+    ["studify-success", "Studify_App/1.jpeg", 0],
+    ["diabetic-retinopathy", "DR/1.jpeg", 0],
+    ["cpu-scheduler-pro", "CPU/1.jpeg", 0],
+    ["agriverse-mobile", "AgriVerse_App/1.jpeg", 0],
+  ];
+  for (const width of [1440, 390, 320]) {
+    const { context, page } = await openPage({ viewport: { width, height: 1000 }, reducedMotion: "reduce" }, false, "#projects");
+    for (const [id, file, controls] of expected) {
+      const card = page.locator(`[data-project="${id}"]`);
+      const image = card.locator(".project-screenshot");
+      await image.scrollIntoViewIfNeeded();
+      await image.evaluate(el => el.decode());
+      assert.ok(await image.evaluate(el => el.complete && el.naturalWidth > 0));
+      assert.equal(await image.getAttribute("src"), `/images/projects/${file}`);
+      assert.ok((await image.getAttribute("alt")).length > 30);
+      assert.equal(await image.evaluate(el => getComputedStyle(el).objectFit), "contain");
+      assert.equal(await card.locator("[data-screenshot]").count(), controls);
+      assert.match(await card.locator(".card-topline").textContent(), /REAL PROJECT/);
+      const link = card.locator(".project-screenshot-link");
+      assert.equal(await link.getAttribute("href"), await image.getAttribute("src"));
+      assert.equal(await link.getAttribute("target"), "_blank");
+      assert.equal(await link.getAttribute("rel"), "noopener noreferrer");
+    }
+    const precision = page.locator('[data-project="precisionprep"]');
+    await precision.getByRole("button", { name: "CBT practice", exact: true }).click();
+    await precision.locator(".project-screenshot").evaluate(el => el.decode());
+    assert.match(await precision.locator(".project-screenshot").getAttribute("src"), /PrecisionPrep\/2\.jpeg$/);
+    assert.equal(await precision.getByRole("button", { name: "CBT practice", exact: true }).getAttribute("aria-pressed"), "true");
+    assert.equal(await precision.locator(".project-screenshot-link").getAttribute("href"), await precision.locator(".project-screenshot").getAttribute("src"));
+    await precision.getByRole("button", { name: "Dashboard", exact: true }).click();
+    assert.match(await precision.locator(".project-screenshot").getAttribute("src"), /PrecisionPrep\/1\.png$/);
+    for (const id of ["indoor-navigator", "amazon-ml-challenge", "fda-weather-analysis"]) {
+      const card = page.locator(`[data-project="${id}"]`);
+      assert.equal(await card.locator(".project-screenshot").count(), 0);
+      assert.match(await card.locator(".art-disclaimer").textContent(), /Illustrative interface study/);
+    }
+    await noOverflow(page);
+    await page.locator('[data-project="studify-success"]').scrollIntoViewIfNeeded();
+    await page.screenshot({ path: `test-results/project-uploads-${width}.png` });
     await context.close();
   }
 });

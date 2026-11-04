@@ -35,6 +35,18 @@ export const projects = [
     repo: "https://github.com/aditi-malviya666/Software-Engineering-Project",
     live: "https://precisionprep.vercel.app",
     visual: "learn",
+    screenshots: [
+      {
+        src: `${import.meta.env.BASE_URL}images/projects/PrecisionPrep/1.png`,
+        label: "Dashboard",
+        alt: "PrecisionPrep dashboard with exam practice, accuracy metrics, and AI study coach insights",
+      },
+      {
+        src: `${import.meta.env.BASE_URL}images/projects/PrecisionPrep/2.jpeg`,
+        label: "CBT practice",
+        alt: "PrecisionPrep timed JEE computer-based test with multiple-choice questions and question navigation",
+      },
+    ],
     color: "#E5DDF0",
   },
   {
@@ -48,6 +60,13 @@ export const projects = [
     repo: "https://github.com/aditi-malviya666/AI-Adaptive-Onboarding-Engine",
     live: "https://ai-adaptive-onboarding-engine-ar6v.onrender.com",
     visual: "adapt",
+    screenshots: [
+      {
+        src: `${import.meta.env.BASE_URL}images/projects/Adapty/1.jpeg`,
+        label: "Overview",
+        alt: "Adaptly overview with personalized learning roadmaps, skill gaps, and an AI mentor",
+      },
+    ],
     color: "#D6E6E3",
   },
   {
@@ -61,6 +80,13 @@ export const projects = [
     repo: "https://github.com/vishalsnghkush/studify_all",
     live: "https://play.google.com/store/apps/details?id=com.studifysuccess.courses",
     visual: "mobile",
+    screenshots: [
+      {
+        src: `${import.meta.env.BASE_URL}images/projects/Studify_App/1.jpeg`,
+        label: "Learning home",
+        alt: "Studify Success mobile home with a personalized study planner, AI flashcards, and learning navigation",
+      },
+    ],
     color: "#EFDCE2",
   },
   {
@@ -74,6 +100,13 @@ export const projects = [
     repo: "https://github.com/aditi-malviya666/Diabetic-Retinopathy",
     live: "https://diabetic-retinopathy-xk2p.onrender.com",
     visual: "retina",
+    screenshots: [
+      {
+        src: `${import.meta.env.BASE_URL}images/projects/DR/1.jpeg`,
+        label: "Research overview",
+        alt: "Diabetic Retinopathy research prototype explaining retinal vessel analysis and physics stress mapping, with an experimental-use notice",
+      },
+    ],
     color: "#E6DCE8",
   },
   {
@@ -87,6 +120,13 @@ export const projects = [
     repo: "https://github.com/vishalsnghkush/OS_CPU_Scheduler",
     live: "https://cpuscheduler-one.vercel.app",
     visual: "cpu",
+    screenshots: [
+      {
+        src: `${import.meta.env.BASE_URL}images/projects/CPU/1.jpeg`,
+        label: "Task builder",
+        alt: "CPU Scheduler Pro task builder with process queue, burst times, CPU configuration, and FCFS algorithm selection",
+      },
+    ],
     color: "#DCE3EC",
   },
   {
@@ -100,6 +140,13 @@ export const projects = [
     repo: "https://github.com/vishalsnghkush/AgriVerse_App",
     live: null,
     visual: "mobile",
+    screenshots: [
+      {
+        src: `${import.meta.env.BASE_URL}images/projects/AgriVerse_App/1.jpeg`,
+        label: "Farm dashboard",
+        alt: "AgriVerse Mobile dashboard with AI leaf diagnosis, farm sensor readings, fertilizer tools, and treatment history",
+      },
+    ],
     color: "#E1E8D3",
   },
   {

@@ -83,7 +83,7 @@ test("AgriVerse displays original screenshots and switches between them", async 
 test("education, project-based skills, and DSA links reflect the updated profile", async () => {
   for (const width of [1440, 390]) {
     const { context, page } = await openPage({ viewport: { width, height: 1000 } }, false, "#academics");
-    assert.equal(await page.locator(".education-score > strong").textContent(), "8.45/10");
+    assert.equal(await page.locator(".education-score > strong").textContent(), "8.55/10");
     await noOverflow(page);
     await goView(page, "skills");
     const cards = page.locator(".skill-card");

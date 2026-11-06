@@ -122,7 +122,10 @@ test("uploaded project screenshots load, switch, and preserve their full image",
     assert.equal(await precision.locator(".project-screenshot-link").getAttribute("href"), await precision.locator(".project-screenshot").getAttribute("src"));
     await precision.getByRole("button", { name: "Dashboard", exact: true }).click();
     assert.match(await precision.locator(".project-screenshot").getAttribute("src"), /PrecisionPrep\/1\.png$/);
-    for (const id of ["indoor-navigator", "amazon-ml-challenge", "fda-weather-analysis"]) {
+    const fda = page.locator('[data-project="fda-weather-analysis"]');
+    assert.equal(await fda.locator(".project-screenshot").count(), 1);
+    assert.match(await fda.locator(".project-screenshot").getAttribute("src"), /FDA\/1\.png$/);
+    for (const id of ["indoor-navigator", "amazon-ml-challenge"]) {
       const card = page.locator(`[data-project="${id}"]`);
       assert.equal(await card.locator(".project-screenshot").count(), 0);
       assert.match(await card.locator(".art-disclaimer").textContent(), /Illustrative interface study/);
@@ -485,4 +488,31 @@ test("all framed views fit small phone, tablet, and desktop widths", async () =>
     }
     await context.close();
   }
+});
+
+test("space-themed animation renders starfield canvas and handles interactions", async () => {
+  const { context, page } = await openPage({ viewport: { width: 1440, height: 1000 } });
+  const canvas = page.locator("#space-canvas");
+  assert.ok(await canvas.isVisible());
+  assert.equal(await canvas.getAttribute("aria-hidden"), "true");
+  assert.equal(await canvas.evaluate(el => getComputedStyle(el).pointerEvents), "none");
+  const box = await canvas.boundingBox();
+  assert.ok(box && box.width > 500 && box.height > 400);
+
+  // Switch to dark mode: stars and shooting stars activate
+  await page.getByRole("button", { name: "Switch to dark theme" }).click();
+  assert.equal(await page.locator("html").getAttribute("data-theme"), "dark");
+
+  // Trigger mouse movement over hero in dark mode
+  await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+  await page.waitForTimeout(300);
+
+  // Switch to another view and verify hero is hidden (animation pauses)
+  await goView(page, "projects");
+  assert.equal(await page.locator("#home").isVisible(), false);
+
+  // Return to home
+  await goView(page, "home");
+  assert.ok(await page.locator("#home").isVisible());
+  await context.close();
 });

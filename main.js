@@ -6,6 +6,7 @@ import "./theme.css";
 import "./typography.css";
 import { setupTheme } from "./theme.js";
 import { contactFormMarkup, setupContactForm } from "./contact.js";
+import { setupSpaceAnimation } from "./space.js";
 
 const github = "https://github.com/vishalsnghkush";
 const linkedin = "https://www.linkedin.com/in/vishal-kushwaha-253891275/";
@@ -117,6 +118,7 @@ document.querySelector("#app").innerHTML = `
   </header>
   <main id="main" class="view-frame">
     <section class="hero" id="home" aria-labelledby="hero-title">
+      <canvas id="space-canvas" class="hero-space-canvas" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;"></canvas>
       <div class="hero-meta"><span>THE PERSONAL SPACE OF A CURIOUS BUILDER</span><span class="availability"><i></i> OPEN TO CONVERSATIONS</span></div>
       <div class="hero-layout">
         <div class="hero-copy"><p class="hello">Hey there, I'm ${icon("sun")}</p><h1 id="hero-title">VISHAL<br><span>KUSHWAHA<span class="name-dot">.</span></span></h1><div class="hero-intro"><span class="small-star" aria-hidden="true">✳</span><p>I turn <em>“what if”</em> into <strong>“it works.”</strong><br>Building for the web, for your pocket,<br>and for a slightly smarter world.</p></div><div class="hero-actions"><a class="button button-dark" href="#projects">Explore my work ${icon("arrow")}</a></div></div>
@@ -165,6 +167,7 @@ document.querySelector("#app").innerHTML = `
 
 setupTheme();
 setupContactForm();
+setupSpaceAnimation();
 
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const desktop = window.matchMedia("(min-width: 901px)");

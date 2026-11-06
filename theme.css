@@ -1,7 +1,8 @@
 :root {
-  --surface: #f6f3ef;
-  --project-surface: #f9f0f1;
-  --header-surface: #fffefdf5;
+  --paper: #ede5ee;
+  --surface: #ede5ee;
+  --project-surface: #ede5ee;
+  --header-surface: rgba(241, 231, 235, 0.85);
   --accent: #94556d;
   --frame-line: #c6b9bf;
   --button-surface: #242323;
@@ -25,6 +26,84 @@
 .view-frame { border-color: var(--frame-line); }
 .academics, .github-section, .dsa-board { background: var(--surface); }
 .projects-section { background: var(--project-surface); }
+
+/* Light mode: soft blush/lavender outer background and translucent frosted glass navbar */
+:root:not([data-theme="dark"]) {
+  --paper: #ede5ee;
+  --surface: #ede5ee;
+  --project-surface: #ede5ee;
+  --header-surface: rgba(241, 231, 235, 0.85);
+}
+
+:root:not([data-theme="dark"]) body {
+  background: rgba(241, 231, 235, 1) !important;
+}
+
+:root:not([data-theme="dark"]) .view-frame,
+:root:not([data-theme="dark"]) .hero,
+:root:not([data-theme="dark"]) .about,
+:root:not([data-theme="dark"]) .academics,
+:root:not([data-theme="dark"]) .experience,
+:root:not([data-theme="dark"]) .skills,
+:root:not([data-theme="dark"]) .projects-section,
+:root:not([data-theme="dark"]) .dsa,
+:root:not([data-theme="dark"]) .dsa-board,
+:root:not([data-theme="dark"]) .github-section,
+:root:not([data-theme="dark"]) .certificates {
+  background: #ede5ee !important;
+}
+
+:root:not([data-theme="dark"]) #contact,
+:root:not([data-theme="dark"]) .contact {
+  background: #f0dce3 !important;
+}
+
+:root:not([data-theme="dark"]) .site-header {
+  background: rgba(241, 231, 235, 0.85) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(198, 185, 191, 0.55);
+}
+:root:not([data-theme="dark"]) .wordmark {
+  color: var(--ink);
+}
+:root:not([data-theme="dark"]) .site-header nav a {
+  color: #6b6665;
+}
+:root:not([data-theme="dark"]) .site-header nav a:hover,
+:root:not([data-theme="dark"]) .site-header nav a.active {
+  color: var(--ink);
+}
+:root:not([data-theme="dark"]) .site-header nav a.active::after {
+  background: var(--pink);
+}
+:root:not([data-theme="dark"]) .header-contact {
+  color: var(--ink);
+  background: rgba(255, 254, 253, 0.85);
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(198, 185, 191, 0.7);
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+:root:not([data-theme="dark"]) .header-contact:hover {
+  background: #362835;
+  border-color: #362835;
+  color: #ffffff;
+}
+:root:not([data-theme="dark"]) .theme-toggle {
+  background: rgba(255, 254, 253, 0.85);
+  color: var(--ink);
+  border: 1px solid rgba(198, 185, 191, 0.7);
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+:root:not([data-theme="dark"]) .theme-toggle:hover {
+  background: #362835;
+  border-color: #362835;
+  color: #ffffff;
+}
+:root:not([data-theme="dark"]) .menu-toggle {
+  color: var(--ink);
+}
 .button-dark { background: var(--button-surface); color: var(--button-text); }
 .button-dark:hover { background: var(--accent); color: var(--paper); }
 .theme-toggle {
@@ -117,26 +196,6 @@ footer { background: #242323; color: #fffefd; }
 [data-theme="dark"] .tag-curiosity { color: var(--pink); }
 [data-theme="dark"] .project-progress > span { background: #66515e; }
 [data-theme="dark"] .project-progress > span.on { background: var(--pink); }
-@media (max-width: 1250px) {
-  .site-header { padding-inline: 24px; gap: 14px; }
-  .site-header .header-contact { display: flex; margin-left: auto; margin-right: 0; }
-  .menu-toggle { display: block; background: none; padding: 8px; }
-  .site-header nav {
-    position: absolute;
-    top: 100%; left: 0; right: 0;
-    height: auto;
-    display: none;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    background: var(--paper);
-    border-bottom: 1px solid var(--line);
-    padding: 16px 24px 24px;
-    gap: 4px 16px;
-    box-shadow: 0 15px 20px #00000015;
-  }
-  .site-header nav.is-open { display: grid; }
-  .site-header nav a { padding: 13px 7px; }
-  .site-header nav a.active::after { bottom: 4px; right: auto; left: 7px; width: 25px; }
-}
 @media (max-width: 450px) {
   .site-header { padding-inline: 16px; gap: 10px; }
   .site-header .header-contact { display: none; }

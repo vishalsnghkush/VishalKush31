@@ -185,7 +185,13 @@ export const projects = [
     stack: ["Pandas", "scikit-learn", "XGBoost", "Matplotlib"],
     repo: "https://github.com/vishalsnghkush/FDA",
     live: null,
-    visual: "data",
+    screenshots: [
+      {
+        src: `${import.meta.env.BASE_URL}images/projects/FDA/1.png`,
+        label: "Diagnostics",
+        alt: "FDA Weather Analysis machine learning pipeline showing weather anomalies, SHAP feature importance, and XGBoost classification diagnostics",
+      },
+    ],
     color: "#E8E5D4",
   },
 ];
